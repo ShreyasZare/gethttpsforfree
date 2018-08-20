@@ -560,9 +560,8 @@ function validateCSR(e){
         }
         ACCOUNT['registration_protected_b64'] = b64(JSON.stringify(ACCOUNT['registration_protected_json']));
         document.getElementById("registration_sig_cmd").value = "" +
-            "PRIV_KEY=./account.key; " +
-            "echo -n \"" + ACCOUNT['registration_protected_b64'] + "." + ACCOUNT['registration_payload_b64'] + "\" | " +
-            "openssl dgst -sha256 -hex -sign $PRIV_KEY";
+            "echo | set /p=\"" + ACCOUNT['registration_protected_b64'] + "." + ACCOUNT['registration_payload_b64'] + "\" | " +
+            "openssl dgst -sha256 -hex -sign account.key";
         document.getElementById("registration_sig").value = "";
         document.getElementById("registration_sig").setAttribute("placeholder", RESULT_PLACEHOLDER);
 
@@ -658,9 +657,8 @@ function validateRegistration(e){
                     }
                     ACCOUNT['update_protected_b64'] = b64(JSON.stringify(ACCOUNT['update_protected_json']));
                     document.getElementById("update_sig_cmd").value = "" +
-                        "PRIV_KEY=./account.key; " +
-                        "echo -n \"" + ACCOUNT['update_protected_b64'] + "." + ACCOUNT['update_payload_b64'] + "\" | " +
-                        "openssl dgst -sha256 -hex -sign $PRIV_KEY";
+                        "echo | set /p=\"" + ACCOUNT['update_protected_b64'] + "." + ACCOUNT['update_payload_b64'] + "\" | " +
+                        "openssl dgst -sha256 -hex -sign account.key";
                     document.getElementById("update_sig_cmd").setAttribute("readonly", "");
                     document.getElementById("update_sig_cmd").removeAttribute("disabled");
                     document.getElementById("update_sig").value = "";
@@ -753,9 +751,8 @@ function validateUpdate(e){
                     }
                     ORDER['order_protected_b64'] = b64(JSON.stringify(ORDER['order_protected_json']));
                     document.getElementById("order_sig_cmd").value = "" +
-                        "PRIV_KEY=./account.key; " +
-                        "echo -n \"" + ORDER['order_protected_b64'] + "." + ORDER['order_payload_b64'] + "\" | " +
-                        "openssl dgst -sha256 -hex -sign $PRIV_KEY";
+                        "echo | set /p=\"" + ORDER['order_protected_b64'] + "." + ORDER['order_payload_b64'] + "\" | " +
+                        "openssl dgst -sha256 -hex -sign account.key";
                     document.getElementById("order_sig_cmd").setAttribute("readonly", "");
                     document.getElementById("order_sig_cmd").removeAttribute("disabled");
                     document.getElementById("order_sig").value = "";
@@ -941,7 +938,7 @@ function validateOrder(e){
                                 "}\n\n" +
                                 "#apache example\n" +
                                 "Alias /.well-known/acme-challenge /path/to/www/.well-known/acme-challenge";
-                            var echo = "echo -n \"" + keyauth + "\" > /path/to/www/.well-known/acme-challenge/" + token;
+                            var echo = "echo | set /p=\"" + keyauth + "\" > /path/to/www/.well-known/acme-challenge/" + token;
                             template.querySelector(".file_config").innerHTML = "";
                             template.querySelector(".file_config").appendChild(document.createTextNode(server_config));
                             template.querySelector(".file_echo").innerHTML = "";
@@ -1128,9 +1125,8 @@ function confirmChallenge(e){
         AUTHORIZATIONS[auth_url][option + '_protected_json'] = protected_json
         AUTHORIZATIONS[auth_url][option + '_protected_b64'] = protected_b64;
         validate_cmd.value = "" +
-            "PRIV_KEY=./account.key; " +
-            "echo -n \"" + protected_b64 + "." + b64(JSON.stringify({})) + "\" | " +
-            "openssl dgst -sha256 -hex -sign $PRIV_KEY";
+            "echo | set /p=\"" + protected_b64 + "." + b64(JSON.stringify({})) + "\" | " +
+            "openssl dgst -sha256 -hex -sign account.key";
         validate_cmd.setAttribute("readonly", "");
         validate_cmd.removeAttribute("disabled");
         validate_input.value = "";
@@ -1257,9 +1253,8 @@ function validateChallenge(e){
                                     }
                                     ORDER['finalize_protected_b64'] = b64(JSON.stringify(ORDER['finalize_protected_json']));
                                     document.getElementById("finalize_sig_cmd").value = "" +
-                                        "PRIV_KEY=./account.key; " +
-                                        "echo -n \"" + ORDER['finalize_protected_b64'] + "." + ORDER['finalize_payload_b64'] + "\" | " +
-                                        "openssl dgst -sha256 -hex -sign $PRIV_KEY";
+                                        "echo | set /p=\"" + ORDER['finalize_protected_b64'] + "." + ORDER['finalize_payload_b64'] + "\" | " +
+                                        "openssl dgst -sha256 -hex -sign account.key";
                                     document.getElementById("finalize_sig_cmd").setAttribute("readonly", "");
                                     document.getElementById("finalize_sig_cmd").removeAttribute("disabled");
                                     document.getElementById("finalize_sig").value = "";
